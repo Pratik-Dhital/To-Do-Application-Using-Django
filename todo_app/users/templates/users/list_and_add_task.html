@@ -28,8 +28,8 @@
                     <td>{{tas.title}}</td>
                     <td>{{tas.description}}</td>
                     <td>
-                        <a href="{% url 'update' tas.id %}" class="btn btn-info btn-sm">Edit</a>
-                        <form action="{% url 'delete' tas.id %}" method="POST" class="d-inline">
+                        <a href="{% url 'update_task' tas.id %}" class="btn btn-info btn-sm">Edit</a>
+                        <form action="{% url 'delete_task' tas.id %}" method="POST" class="d-inline">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Delete">
                         </form>
@@ -43,22 +43,5 @@
         {% endif %}
     </div>
 </div>
-
-<!-- <a href="{% url 'add-task' %}">Add New Task</a>
-
-{% for task in tasks %}
-
-<div>
-    <h3>{{ task.title }}</h3>
-    <p>{{task.description}}</p>
-
-    {% if task.completed %}
-    <p>Completed</p>
-    {% else %}
-    <p>Pending</p>
-    {% endif %}
-</div> -->
-
-{% endfor %}
 
 {% endblock %}

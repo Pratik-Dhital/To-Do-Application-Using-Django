@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+
+{% block start %}
+
+<div class="container mt-5">
+
+    <div class="col-md-4 offset-md-4">
+
+        <h3 class="alert alert-info text-center">
+            Login
+        </h3>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <input type="submit"
+                   value="Login"
+                   class="btn btn-success">
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
