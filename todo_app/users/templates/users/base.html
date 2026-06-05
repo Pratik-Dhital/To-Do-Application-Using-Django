@@ -11,17 +11,22 @@
 
 <body>
     <nav class="navbar navbar-dark bg-dark px-3">
-    <span class="navbar-brand">Todo App</span>
+        <span class="navbar-brand">Todo App</span>
 
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button class="btn btn-outline-light btn-sm">
-            Logout
-        </button>
-    </form>
-    {% endif %}
-</nav>
+        {% if user.is_authenticated %}
+        <div class="d-flex align-items-center gap-3">
+
+            <span class="text-white">
+                Welcome, {{ user.username }}
+            </span>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button class="btn btn-outline-light btn-sm">
+                    Logout
+                </button>
+            </form>
+            {% endif %}
+    </nav>
     <div class="container mt-5">
         <h2 class="text-center alert alert-danger">To-Do Application</h2>
         {% block content %}

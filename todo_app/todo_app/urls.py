@@ -27,6 +27,6 @@ urlpatterns = [
     path('delete/<int:id>/', delete_task, name='delete_task'),
     path('register/', register_user, name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
-    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    # path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    # path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
