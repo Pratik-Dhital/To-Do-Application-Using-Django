@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, RegisterForm
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -27,19 +28,43 @@ def list_and_add_task(request):
     return render(request, 'users/list_and_add_task.html', {'task': task, 'form': form})
 
 
+@login_required
 def update_task(request, id):
+
+    tk = get_object_or_404(Task, pk=id, user=request.user)
+
     if request.method == 'POST':
-        tk = Task.objects.get(pk=id)
         fm = TaskForm(request.POST, instance=tk)
+
         if fm.is_valid():
             fm.save()
-        else:
-            tk = Task.objects.get(pk=id)
-            fm = TaskForm(instance=tk)
-        return render(request, 'users/update_task.html', {'form': fm})
+            return redirect('list-and-add-task')
 
+    else:
+        fm = TaskForm(instance=tk)
+
+    return render(request, 'users/update_task.html', {'form': fm})
+
+
+@login_required
 def delete_task(request, id):
+    tk = get_object_or_404(Task, pk=id, user=request.user)
     if request.method == 'POST':
         tk = Task.objects.get(pk=id)
         tk.delete()
         return redirect('list-and-add-task')
+    
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('list-and-add-task')
+
+    else:
+        form = RegisterForm()
+
+    return render(request, 'registration/register.html', {'form': form})
